@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bean & Mood | 원두 큐레이션 플랫폼</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo" onclick="goToMain()" style="cursor: pointer;">Bean & Mood</div>
+        <nav class="menu">
+            <a href="#" onclick="goToMain()">Shop</a>
+            <a href="#">Curator</a>
+            <a href="#">Brand Story</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn-recommend" onclick="toggleRecommendation()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> 나에게 맞는 원두 찾기
+            </button>
+            <span class="cart-status"><i class="fa-solid fa-bag-shopping"></i> Cart (<span id="cart-qty">0</span>)</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Taste Curation</span>
+            <h1>오늘 당신의 기분에<br>어울리는 원두를 찾으세요</h1>
+            <p>취향 분석 알고리즘을 통해 복잡한 원두 선택을 심플하게.<br>가장 알맞은 싱글오리진과 블렌드를 추천하고 판매처별 최저가를 비교해 드립니다.</p>
+            <button class="btn-recommend" onclick="toggleRecommendation()" style="margin: 0 auto; padding: 14px 28px; font-size: 15px;">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> 취향 분석 시작하기
+            </button>
+        </div>
+    </section>
+
+    <section class="recommendation-section" id="recommendation-sec">
+        <div class="section-inner">
+            <div class="quiz-title">
+                <h2>원두 취향 분석 큐레이션</h2>
+                <p>선호하는 커피의 특성을 선택하시면 최적의 원두와 판매처를 보여드립니다.</p>
+            </div>
+
+            <div class="quiz-card">
+                <div class="question-group">
+                    <span class="question-label"><i class="fa-solid fa-droplet" style="color: #74b9ff;"></i> 1. 선호하는 산미 스타일은 무엇인가요?</span>
+                    <div class="option-grid">
+                        <label class="option-card selected">
+                            <input type="radio" name="acidity" value="high" checked onclick="selectCard(this.parentElement, 'acidity')">
+                            <h4>화사한 산미</h4>
+                            <p>과일향과 청량감</p>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="acidity" value="mid" onclick="selectCard(this.parentElement, 'acidity')">
+                            <h4>밸런스 있는 산미</h4>
+                            <p>은은하고 부드러운 맛</p>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="acidity" value="low" onclick="selectCard(this.parentElement, 'acidity')">
+                            <h4>고소하고 낮은 산미</h4>
+                            <p>산미가 거의 없는 맛</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <span class="question-label"><i class="fa-solid fa-weight-hanging" style="color: #a4b0be;"></i> 2. 선호하는 바디감(무게감)은 어떤가요?</span>
+                    <div class="option-grid">
+                        <label class="option-card">
+                            <input type="radio" name="body" value="light" onclick="selectCard(this.parentElement, 'body')">
+                            <h4>가볍고 깔끔함</h4>
+                            <p>차(Tea)처럼 맑은 느낌</p>
+                        </label>
+                        <label class="option-card selected">
+                            <input type="radio" name="body" value="medium" checked onclick="selectCard(this.parentElement, 'body')">
+                            <h4>적당한 부드러움</h4>
+                            <p>대중적이고 매끄러운 목넘김</p>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="body" value="heavy" onclick="selectCard(this.parentElement, 'heavy')">
+                            <h4>묵직하고 진함</h4>
+                            <p>카카오처럼 쌉싸름한 무게감</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <span class="question-label"><i class="fa-solid fa-bolt" style="color: #f5cd79;"></i> 3. 카페인 섭취 유형을 선택해 주세요.</span>
+                    <div class="option-grid">
+                        <label class="option-card selected">
+                            <input type="radio" name="caffeine" value="regular" checked onclick="selectCard(this.parentElement, 'caffeine')">
+                            <h4>일반 카페인</h4>
+                            <p>각성이 필요한 일상</p>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="caffeine" value="decaf" onclick="selectCard(this.parentElement, 'caffeine')">
+                            <h4>디카페인</h4>
+                            <p>카페인 부담 없는 편안함</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-submit-container">
+                    <button class="btn-submit" onclick="generateRecommendation()">맞춤 원두 및 최저가 확인하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="result-section">
+        <div class="section-inner">
+            <div class="result-container" id="result-box">
+                <div class="result-banner">
+                    <span class="user-tag" id="result-type-tag">선택하신 원두 상세 정보</span>
+                </div>
+
+                <div class="sales-card">
+                    <div class="sales-visual">
+                        <span class="visual-tag" id="rec-tag">Single Origin</span>
+                        <div class="visual-icon" id="rec-visual-icon"><i class="fa-solid fa-mug-saucer"></i></div>
+                        <div class="visual-bean-name" id="rec-visual-name">에티오피아 코체르</div>
+                    </div>
+
+                    <div class="sales-details">
+                        <div class="sales-info">
+                            <h2 id="rec-title">에티오피아 코체르 G1</h2>
+                            <p class="notes" id="rec-notes">자스민, 화사한 레몬그라스, 홍차와 같은 실키한 텍스처</p>
+                        </div>
+
+                        <div class="option-section">
+                            <span class="option-label">판매 가게 선택 (원하는 가게를 클릭하세요)</span>
+                            <div class="shop-selector-grid" id="shop-selector-list">
+                                </div>
+                            <div class="shop-description-box" id="shop-desc-display">
+                                가게를 선택하면 해당 가게의 원두 테이스팅 특징이 나타납니다.
+                            </div>
+                        </div>
+
+                        <div class="option-section">
+                            <span class="option-label">용량 선택</span>
+                            <div class="option-selector" id="weight-selector">
+                                <button class="opt-btn active" onclick="selectOption(this, 'weight', 200, 0)">200g</button>
+                                <button class="opt-btn" onclick="selectOption(this, 'weight', 500, 12000)">500g (+12,000원)</button>
+                                <button class="opt-btn" onclick="selectOption(this, 'weight', 1000, 28000)">1kg (+28,000원)</button>
+                            </div>
+                        </div>
+
+                        <div class="option-section">
+                            <span class="option-label">분쇄 옵션</span>
+                            <div class="option-selector" id="grind-selector">
+                                <button class="opt-btn active" onclick="selectOption(this, 'grind', 'whole')">홀빈(분쇄안함)</button>
+                                <button class="opt-btn" onclick="selectOption(this, 'grind', 'hand')">핸드드립용</button>
+                                <button class="opt-btn" onclick="selectOption(this, 'grind', 'espresso')">에스프레소용</button>
+                            </div>
+                        </div>
+
+                        <div class="option-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                            <div>
+                                <span class="option-label">수량</span>
+                                <div class="quantity-controller">
+                                    <button onclick="changeQty(-1)">-</button>
+                                    <span id="quantity-val">1</span>
+                                    <button onclick="changeQty(1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="price-bill">
+                                <span class="price-label">선택한 가게 결제 금액</span>
+                                <span class="total-price" id="total-price-display">16,000원</span>
+                            </div>
+                            <div class="action-button-group">
+                                <button class="btn-cart" onclick="addToCart()">장바구니 담기</button>
+                                <button class="btn-buy" onclick="handleCheckout()">바로 구매하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shop-section">
+        <h2>스페셜티 원두 컬렉션</h2>
+        <div class="product-grid">
+            <div class="product-card" onclick="forceSelect('high', 'light', 'regular')">
+                <div class="product-img"><i class="fa-solid fa-leaf" style="color: #c2d1c2;"></i></div>
+                <span class="product-meta">Single Origin</span>
+                <h3 class="product-title">에티오피아 코체르 G1</h3>
+                <p class="product-desc">기분 좋은 레몬 계열의 산미와 화사한 플로럴 텍스처</p>
+                <p class="product-price">16,000원부터</p>
+            </div>
+
+            <div class="product-card" onclick="forceSelect('low', 'heavy', 'regular')">
+                <div class="product-img"><i class="fa-solid fa-cookie" style="color: #dec8b0;"></i></div>
+                <span class="product-meta">Signature Blend</span>
+                <h3 class="product-title">디프 브라운 블렌드</h3>
+                <p class="product-desc">진한 카카오풍의 단맛과 브라운 슈가의 묵직한 마우스필</p>
+                <p class="product-price">14,200원부터</p>
+            </div>
+
+            <div class="product-card" onclick="forceSelect('low', 'medium', 'decaf')">
+                <div class="product-img"><i class="fa-solid fa-moon" style="color: #ced6e0;"></i></div>
+                <span class="product-meta">Decaf Single</span>
+                <h3 class="product-title">콜롬비아 수프레모 디카페인</h3>
+                <p class="product-desc">단맛을 극대화하여 마신 뒤 여운이 길며 자극 없는 부드러움</p>
+                <p class="product-price">16,800원부터</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
