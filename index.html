@@ -15,9 +15,9 @@
     <header class="navbar">
         <div class="logo" onclick="goToMain()" style="cursor: pointer;">Bean & Mood</div>
         <nav class="menu">
-            <a href="#" onclick="goToMain()">Shop</a>
-            <a href="#">Curator</a>
-            <a href="#">Brand Story</a>
+            <a href="#shop-section" onclick="showSection('shop')">Shop</a>
+            <a href="#recommendation-sec" onclick="showSection('curator')">Curator</a>
+            <a href="#brand-story" onclick="showSection('brand')">Brand Story</a>
         </nav>
         <div class="nav-actions">
             <button class="btn-recommend" onclick="toggleRecommendation()">
@@ -26,6 +26,35 @@
             <span class="cart-status"><i class="fa-solid fa-bag-shopping"></i> Cart (<span id="cart-qty">0</span>)</span>
         </div>
     </header>
+
+    <section id="brand-story" class="brand-section" style="display: none;">
+        <div class="brand-container">
+            <h2>Bean & Mood: 자연에서 잔까지</h2>
+            <div class="story-grid">
+                <div class="story-card">
+                    <img src="farm.jpg" alt="원두 농장" class="story-img">
+                    <h3>01. 고산지대의 정직함</h3>
+                </div>
+                <div class="story-card">
+                    <img src="roasting.jpg" alt="커피 가공" class="story-img">
+                    <h3>02. 완벽한 로스팅</h3>
+                </div>
+                <div class="story-card">
+                    <img src="coffee.jpg" alt="완성된 커피" class="story-img">
+                    <h3>03. 당신의 무드</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop-section" class="shop-section" style="display: block;">
+        <h2>스페셜티 원두 컬렉션</h2>
+        <div class="product-grid">
+            </div>
+    </section>
+
+    <section id="recommendation-sec" style="display: none;">
+        </section>
 
     <section class="hero">
         <div class="hero-content">
@@ -211,6 +240,23 @@
                 <p class="product-desc">단맛을 극대화하여 마신 뒤 여운이 길며 자극 없는 부드러움</p>
                 <p class="product-price">16,800원부터</p>
             </div>
+
+            <div class="product-card" onclick="forceSelect('mid', 'heavy', 'regular')">
+                <div class="product-img"><i class="fa-solid fa-seedling"></i></div>
+                <span class="product-meta">Single Origin</span>
+                <h3 class="product-title">과테말라 안티구아 SHB</h3>
+                <p class="product-desc">스모키한 향과 다크 초콜릿의 묵직한 달콤함</p>
+                <p class="product-price">15,500원부터</p>
+            </div>
+
+            <div class="product-card" onclick="forceSelect('high', 'medium', 'regular')">
+                <div class="product-img"><i class="fa-solid fa-mug-hot"></i></div>
+                <span class="product-meta">Single Origin</span>
+                <h3 class="product-title">케냐 AA 키린야가</h3>
+                <p class="product-desc">블랙커런트의 강렬한 산미와 와인 같은 풍미</p>
+                <p class="product-price">17,500원부터</p>
+            </div>
+
         </div>
     </section>
 
