@@ -35,6 +35,61 @@ const beanDB = [
             { name: "가게 B (무드커피)", price: 16800, desc: "밤시간에도 안심하고 마실 수 있는 99.9% 카페인 프리 원두로, 마일드한 텍스처와 은은한 보리차 같은 구수함이 특징입니다." },
             { name: "가게 C (카페 빈즈)", price: 17500, desc: "최상급 수프레모 등급만을 고집하여 바디감이 빈약해지기 쉬운 디카페인의 단점을 완벽히 보완한 묵직함이 강점입니다." }
         ]
+    },
+    {   
+        name: "에티오피아 코체르 G1",
+        tag: "Single Origin",
+        icon: '<i class="fa-solid fa-leaf" style="color: #c2d1c2;"></i>',
+        notes: "자스민, 화사한 레몬그라스, 홍차와 같은 실키한 텍스처",
+        traits: { acidity: "high", body: "light", caffeine: "regular" },
+        shops: [ /* 기존 가게 데이터 */ ]
+    },
+    {
+        name: "과테말라 안티구아 SHB",
+        tag: "Single Origin",
+        icon: '<i class="fa-solid fa-seedling" style="color: #d1ccc0;"></i>',
+        notes: "스모키한 향과 함께 느껴지는 묵직한 바디감과 다크 초콜릿의 달콤함",
+        traits: { acidity: "mid", body: "heavy", caffeine: "regular" },
+        shops: [
+            { name: "가게 A (bm로스터스)", price: 15500, desc: "화산 토양에서 자란 안티구아 특유의 스모키한 매력을 중강배전으로 살렸습니다." },
+            { name: "가게 B (무드커피)", price: 15200, desc: "균형 잡힌 산미를 유도하여 데일리로 부드럽게 마시기 편안합니다." }
+        ]
+    },
+    {
+        name: "케냐 AA 키린야가",
+        tag: "Single Origin",
+        icon: '<i class="fa-solid fa-mug-hot" style="color: #ff9f43;"></i>',
+        notes: "잘 익은 블랙커런트의 강렬한 산미와 와인 같은 깊은 풍미",
+        traits: { acidity: "high", body: "medium", caffeine: "regular" },
+        shops: [
+            { name: "가게 C (카페 빈즈)", price: 17500, desc: "케냐 AA 등급 중에서도 최상위 랏만을 선정하여 화려한 산미를 극대화했습니다." }
+        ]
+    },
+    {
+        name: "디프 브라운 블렌드",
+        tag: "Signature Blend",
+        icon: '<i class="fa-solid fa-cookie" style="color: #dec8b0;"></i>',
+        notes: "다크 초콜릿, 오곡 쿠키의 묵직한 바디감과 뛰어난 단맛",
+        traits: { acidity: "low", body: "heavy", caffeine: "regular" },
+        shops: [ /* 기존 가게 데이터 */ ]
+    },
+    {
+        name: "브라질 세하도 내추럴",
+        tag: "Single Origin",
+        icon: '<i class="fa-solid fa-sun" style="color: #ffeaa7;"></i>',
+        notes: "견과류의 고소함과 은은한 밀크 초콜릿의 부드러움",
+        traits: { acidity: "low", body: "medium", caffeine: "regular" },
+        shops: [
+            { name: "가게 A (bm로스터스)", price: 13500, desc: "호불호 없는 고소함으로 매일 아침 커피로 가장 추천하는 원두입니다." }
+        ]
+    },
+    {
+        name: "콜롬비아 수프레모 디카페인",
+        tag: "Decaf Single",
+        icon: '<i class="fa-solid fa-moon" style="color: #ced6e0;"></i>',
+        notes: "단맛을 극대화하여 마신 뒤 여운이 길며 자극 없는 부드러움",
+        traits: { acidity: "low", body: "medium", caffeine: "decaf" },
+        shops: [ /* 기존 가게 데이터 */ ]
     }
 ];
 
@@ -204,6 +259,31 @@ function handleCheckout() {
     const targetBasePrice = selectedBean.shops[activeShopIndex].price;
     const total = (targetBasePrice + orderConfig.weightAdd) * orderConfig.quantity;
     alert(`[주문 완료] ${selectedBean.name} (${selectedBean.shops[activeShopIndex].name.split(' ')[0]}) \n수량: ${orderConfig.quantity}개 \n합계 금액: ${total.toLocaleString()}원 주문이 완료되었습니다.`);
+}
+
+function showSection(sectionId) {
+    // 모든 섹션 숨기기
+    document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+    
+    // 선택한 섹션 보여주기
+    document.getElementById(sectionId).style.display = 'block';
+}
+
+// 섹션 노출 제어 함수
+function showSection(target) {
+    // 1. 모든 섹션을 숨김
+    document.getElementById('shop-section').style.display = 'none';
+    document.getElementById('brand-story').style.display = 'none';
+    document.getElementById('recommendation-sec').style.display = 'none';
+
+    // 2. 타겟 섹션만 보여줌
+    if(target === 'shop') {
+        document.getElementById('shop-section').style.display = 'block';
+    } else if(target === 'brand') {
+        document.getElementById('brand-story').style.display = 'block';
+    } else if(target === 'curator') {
+        document.getElementById('recommendation-sec').style.display = 'block';
+    }
 }
 
 // 메인 화면 하단 스페셜티 원두 컬렉션을 클릭했을 때 작동하는 함수
